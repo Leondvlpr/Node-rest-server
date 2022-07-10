@@ -8,7 +8,7 @@ Dentro de este se hacen las respectivas validaciones antes de cada acción:
 
 # Para mostrar
 
-Filtros: Se puede paginar los usuarios enviando el query limite, por ejemplo ```limite = 5```, se listarán solo los 5 primeros. Se puede iniciar de un numero de usuario en adelante enviando el query desde, por ejemplo```desde = 2```, se listarán los que esten despues del usuario 2.
+Filtros: Se puede paginar los usuarios enviando el query limite, por ejemplo ```limite = 5```, se listarán solo los 5 primeros. Se puede iniciar de un numero de usuario en adelante enviando el query desde, por ejemplo ```desde = 2```, se listarán los que esten despues del usuario 2.
 
 Información: Se retorna toda la infomación de los usuarios registrados.
 
