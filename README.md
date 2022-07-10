@@ -1,3 +1,5 @@
 # WebServer + RestServer
 
-Recuerden que deben de ejecutar ```npm install``` para reconstruir los módulos de Node.
+Ejecutar ```npm install``` para reconstruir los módulos de Node.
+
+El RestServer retorna informacion de usuarios, así como tambien permite su respectivo registro, eliminación y actualización.
