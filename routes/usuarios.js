@@ -1,8 +1,10 @@
 
 const { Router } = require('express');
-const { check } = require('express-validator');
+const { body, param } = require('express-validator');
+
+const {validarCampos, validarJWT, tieneRole} = require('../middlewares');
+
 const { esRoleValido, existeEmail, existeUsuarioPorId } = require('../helpers/db-validators');
-const { validarCampos } = require('../middlewares/validar-campos');
 
 const { usuariosGet,
         usuariosPut,
@@ -16,24 +18,26 @@ const router = Router();
 router.get('/', usuariosGet );
 
 router.put('/:id', [
-    check('id', 'No es un ID valido').isMongoId(),
-    check('id').custom(existeUsuarioPorId),
-    check('rol').custom( esRoleValido ),
+    param('id', 'No es un ID valido').isMongoId(),
+    param('id').custom(existeUsuarioPorId),
+    body('rol').custom( esRoleValido ),
     validarCampos
 ], usuariosPut );
 
 router.post('/', [
-    check('nombre', 'El nombre es obligatorio').not().isEmpty(),
-    check('password', 'El password debe contener mas de 6 caracteres').isLength({min: 6}),
-    check('correo', 'El correo no es válido').isEmail(),
-    check('correo').custom(existeEmail),
-    check('rol').custom( esRoleValido ),
+    body('nombre', 'El nombre es obligatorio').not().isEmpty(),
+    body('password', 'El password debe contener mas de 6 caracteres').isLength({min: 6}),
+    body('correo', 'El correo no es válido').isEmail(),
+    body('correo').custom(existeEmail),
+    body('rol').custom( esRoleValido ),
     validarCampos
 ], usuariosPost );
 
 router.delete('/:id', [
-    check('id', 'No es un ID valido').isMongoId(),
-    check('id').custom(existeUsuarioPorId),
+    validarJWT,
+    tieneRole('ADMIN_ROLE', 'VENTAS_ROLE'),
+    param('id', 'No es un ID valido').isMongoId(),
+    param('id').custom(existeUsuarioPorId),
     validarCampos
 ], usuariosDelete );
 
